@@ -134,7 +134,17 @@ streamlit run web/app.py
 
 ### Screenshots
 
-```
+**Web Interface - Stock Selection & Configuration:**
+
+<p align="center">
+  <img src="assets/web/web_ui_main.jpg" style="width: 100%; height: auto;">
+</p>
+
+**Analysis Result - Trading Decision:**
+
+<p align="center">
+  <img src="assets/web/web_ui_result.jpg" style="width: 100%; height: auto;">
+</p>
 Web Interface:
 ┌─────────────────────────────────────────┐
 │ TradingAgents Web                       │
