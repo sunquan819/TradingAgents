@@ -55,9 +55,29 @@
 
 </div>
 
-## Web UI (NEW Feature)
+## 🔧 Fork Repository Modifications
 
-> 🎉 **New Feature**: We've added a beautiful Streamlit web interface for easier interaction!
+> **Note**: This is a fork of [TauricResearch/TradingAgents](https://github.com/TauricResearch/TradingAgents). The following features are custom additions to this fork and are **NOT** part of the original repository.
+
+### New Features Added to This Fork
+
+| Feature | Status | Description |
+|---------|--------|-------------|
+| 🖥️ **Web UI (Streamlit)** | ✅ New | Interactive web interface with Chinese/English support |
+| 🌐 **Multi-language UI** | ✅ New | Full Chinese/English interface |
+| 📌 **Popular Stocks Presets** | ✅ New | 40+ preset stock tickers (NVDA, AAPL, BABA, etc.) |
+| 🔄 **Alpha Vantage Support** | ✅ New | Alternative data source with 72h cache |
+| 🤖 **NVIDIA NIM Provider** | ✅ New | DeepSeek V4, Llama 3.3 70B, Nemotron models |
+| 🇨🇳 **Coding Plan Provider** | ✅ New | Alibaba ¥200/month package (Qwen, GLM, Kimi, MiniMax) |
+| 💾 **Config Persistence** | ✅ New | Frontend API key configuration with auto-save |
+| ⏱️ **Smart Data Cache** | ✅ New | 72-hour cache to reduce API quota consumption |
+| 📊 **Real-time Progress UI** | ✅ New | Live analysis progress with agent status display |
+
+---
+
+## Web UI (This Fork's New Feature)
+
+> 🎉 **Fork Addition**: We've added a beautiful Streamlit web interface for easier interaction! This feature is exclusive to this fork repository.
 
 ### Key Features
 
@@ -97,7 +117,7 @@ streamlit run web/app.py
 - Input API keys directly in web interface
 - Auto-save to `~/.tradingagents/web_config.json`
 
-**3. Smart Data Caching**
+**3. Smart Data Caching (Fork Exclusive)**
 - First analysis: ~15 Alpha Vantage API calls
 - Next 72 hours: 0 API calls (use cache)
 - Perfect for increasing debate rounds without consuming API quota
@@ -108,9 +128,9 @@ streamlit run web/app.py
 | yfinance | Free, no API key | Rate limits, timeouts |
 | Alpha Vantage | Stable, reliable | 25 calls/day (free) |
 
-**5. New LLM Providers**
-- NVIDIA NIM: DeepSeek V4, Llama 3.3 70B, Nemotron
-- Alibaba Coding Plan: ¥200/month, Qwen + GLM + Kimi + MiniMax
+**5. New LLM Providers (Fork Exclusive)**
+- **NVIDIA NIM**: DeepSeek V4, Llama 3.3 70B, Nemotron
+- **Alibaba Coding Plan**: ¥200/month, Qwen + GLM + Kimi + MiniMax
 
 ### Screenshots
 
@@ -150,7 +170,9 @@ Step 2: Deep Analysis (Use cache)
 └─ Analyze same stock → 0 API calls ✅
 ```
 
-## TradingAgents Framework
+---
+
+## Original TradingAgents Framework
 
 TradingAgents is a multi-agent trading framework that mirrors the dynamics of real-world trading firms. By deploying specialized LLM-powered agents: from fundamental analysts, sentiment experts, and technical analysts, to trader, risk management team, the platform collaboratively evaluates market conditions and informs trading decisions. Moreover, these agents engage in dynamic discussions to pinpoint the optimal strategy.
 
