@@ -145,24 +145,6 @@ streamlit run web/app.py
 <p align="center">
   <img src="assets/web/web_ui_result.jpg" style="width: 100%; height: auto;">
 </p>
-Web Interface:
-┌─────────────────────────────────────────┐
-│ TradingAgents Web                       │
-├─────────────────────────────────────────┤
-│ 📌 热门股票选择                         │
-│ 🇺🇸 [NVDA] [AAPL] [MSFT]...             │
-│ 🇨🇳 [BABA] [JD] [PDD]...                │
-│ 📊 [SPY] [QQQ]...                        │
-├─────────────────────────────────────────┤
-│ 配置区域                                 │
-│ ├─ LLM Provider: OpenAI                 │
-│ ├─ Deep Model: gpt-5.4                  │
-│ ├─ 辩论轮数: 1-5                         │
-│ └─ 数据源: alpha_vantage                 │
-├─────────────────────────────────────────┤
-│ [开始分析]                               │
-└─────────────────────────────────────────┘
-```
 
 ### Workflow Strategy
 
