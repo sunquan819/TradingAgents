@@ -4,8 +4,56 @@ import pandas as pd
 import json
 from datetime import datetime
 from io import StringIO
+from pathlib import Path
+from tradingagents.dataflows.config import get_config
 
 API_BASE_URL = "https://www.alphavantage.co/query"
+
+# Cache configuration
+CACHE_DIR = None
+CACHE_EXPIRY_HOURS = 72  # Cache expires after 72 hours (3 days)
+
+def _init_cache_dir():
+    """Initialize cache directory."""
+    global CACHE_DIR
+    if CACHE_DIR is None:
+        config = get_config()
+        CACHE_DIR = Path(config.get("data_cache_dir", os.path.join(os.path.expanduser("~"), ".tradingagents", "cache")))
+        CACHE_DIR.mkdir(parents=True, exist_ok=True)
+    return CACHE_DIR
+
+def _get_cache_path(function_name: str, symbol: str, params: dict) -> Path:
+    """Get cache file path for a specific API call."""
+    cache_dir = _init_cache_dir()
+    # Create a unique cache key based on function, symbol, and params
+    param_str = "_".join([f"{k}={v}" for k, v in sorted(params.items()) if k not in ["function", "apikey", "source"]])
+    cache_key = f"{function_name}_{symbol}_{param_str}.csv"
+    return cache_dir / "alpha_vantage" / cache_key
+
+def _check_cache(cache_path: Path) -> str | None:
+    """Check if cached data exists and is still valid."""
+    if not cache_path.exists():
+        return None
+    
+    # Check cache age
+    cache_time = datetime.fromtimestamp(cache_path.stat().st_mtime)
+    age_hours = (datetime.now() - cache_time).total_seconds() / 3600
+    
+    if age_hours > CACHE_EXPIRY_HOURS:
+        return None
+    
+    try:
+        return cache_path.read_text(encoding="utf-8")
+    except Exception:
+        return None
+
+def _save_cache(cache_path: Path, data: str):
+    """Save data to cache."""
+    try:
+        cache_path.parent.mkdir(parents=True, exist_ok=True)
+        cache_path.write_text(data, encoding="utf-8")
+    except Exception as e:
+        print(f"Warning: Failed to save cache: {e}")
 
 def get_api_key() -> str:
     """Retrieve the API key for Alpha Vantage from environment variables."""
@@ -39,12 +87,27 @@ class AlphaVantageRateLimitError(Exception):
     """Exception raised when Alpha Vantage API rate limit is exceeded."""
     pass
 
-def _make_api_request(function_name: str, params: dict) -> dict | str:
-    """Helper function to make API requests and handle responses.
+def _make_api_request(function_name: str, params: dict, use_cache: bool = True) -> dict | str:
+    """Helper function to make API requests with caching support.
+    
+    Args:
+        function_name: Alpha Vantage API function name
+        params: API parameters
+        use_cache: Whether to use cache (default True)
     
     Raises:
         AlphaVantageRateLimitError: When API rate limit is exceeded
     """
+    symbol = params.get("symbol", "")
+    
+    # Check cache first
+    if use_cache and symbol:
+        cache_path = _get_cache_path(function_name, symbol, params)
+        cached_data = _check_cache(cache_path)
+        if cached_data:
+            print(f"Using cached data for {function_name} {symbol}")
+            return cached_data
+    
     # Create a copy of params to avoid modifying the original
     api_params = params.copy()
     api_params.update({
@@ -79,7 +142,12 @@ def _make_api_request(function_name: str, params: dict) -> dict | str:
     except json.JSONDecodeError:
         # Response is not JSON (likely CSV data), which is normal
         pass
-
+    
+    # Save to cache
+    if use_cache and symbol and response_text:
+        cache_path = _get_cache_path(function_name, symbol, params)
+        _save_cache(cache_path, response_text)
+    
     return response_text
 
 

@@ -101,6 +101,46 @@ MODEL_OPTIONS: ProviderModeOptions = {
             ("Custom model ID", "custom"),
         ],
     },
+    "nvidia": {
+        "quick": [
+            ("DeepSeek V4 Flash - Latest V4 fast model", "deepseek-ai/deepseek-v4-flash"),
+            ("GLM-4.7 - Multilingual coding partner", "z-ai/glm-4.7"),
+            ("Llama 3.1 8B Instruct - Fast, cost-effective", "meta/llama-3.1-8b-instruct"),
+            ("Mistral NeMo 12B - Balanced performance", "nvidia/mistral-nemo-12b-instruct"),
+            ("Phi-3 Mini 4K - Efficient Microsoft model", "microsoft/phi-3-mini-4k-instruct"),
+            ("Qwen 2.5 7B Instruct - Efficient", "qwen/qwen2.5-7b-instruct"),
+            ("Custom model ID", "custom"),
+        ],
+        "deep": [
+            ("DeepSeek V4 Pro - Latest V4 flagship (1M context)", "deepseek-ai/deepseek-v4-pro"),
+            ("GLM-5.1 - Flagship for agentic workflows", "z-ai/glm-5.1"),
+            ("Llama 3.3 70B Instruct - High-quality reasoning", "meta/llama-3.3-70b-instruct"),
+            ("Nemotron-3 Super 120B - NVIDIA MoE with 1M context", "nvidia/nemotron-3-super-120b-a12b"),
+            ("Mistral Medium 3.5 128B - High performance", "mistralai/mistral-medium-3.5-128b"),
+            ("Llama 3.1 405B Instruct - Largest Llama model", "meta/llama-3.1-405b-instruct"),
+            ("DeepSeek V3 - Advanced reasoning", "deepseek-ai/deepseek-v3"),
+            ("Mistral Small 4 119B - Hybrid MoE", "mistralai/mistral-small-4-119b-2603"),
+            ("Gemma 4 31B - Google frontier reasoning", "google/gemma-4-31b-it"),
+            ("Custom model ID", "custom"),
+        ],
+    },
+    "coding_plan": {
+        "quick": [
+            ("Qwen3 Coder Plus - Efficient coding", "qwen3-coder-plus"),
+            ("GLM-4.7 - General purpose", "glm-4.7"),
+            ("Qwen3.5 Plus - Multimodal understanding", "qwen3.5-plus"),
+            ("Custom model ID", "custom"),
+        ],
+        "deep": [
+            ("Qwen3.6 Plus - Recommended, multimodal", "qwen3.6-plus"),
+            ("Kimi K2.5 - Multimodal understanding", "kimi-k2.5"),
+            ("GLM-5 - Flagship model", "glm-5"),
+            ("MiniMax M2.5 - Advanced model", "MiniMax-M2.5"),
+            ("Qwen3 Max - Latest flagship", "qwen3-max-2026-01-23"),
+            ("Qwen3 Coder Next - Latest coding", "qwen3-coder-next"),
+            ("Custom model ID", "custom"),
+        ],
+    },
     # OpenRouter: fetched dynamically. Azure: any deployed model name.
     "ollama": {
         "quick": [
