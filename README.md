@@ -28,6 +28,7 @@
 # TradingAgents: Multi-Agents LLM Financial Trading Framework
 
 ## News
+- [2026-05] **NEW: Web UI Release** - Added Streamlit web interface with Chinese/English support, popular stocks quick selection (40+ presets), Alpha Vantage data source, NVIDIA NIM & Alibaba Coding Plan providers, configuration persistence, and 72-hour data cache!
 - [2026-04] **TradingAgents v0.2.4** released with structured-output agents (Research Manager, Trader, Portfolio Manager), LangGraph checkpoint resume, persistent decision log, DeepSeek/Qwen/GLM/Azure provider support, Docker, and a Windows UTF-8 encoding fix. See [CHANGELOG.md](CHANGELOG.md) for the full list.
 - [2026-03] **TradingAgents v0.2.3** released with multi-language support, GPT-5.4 family models, unified model catalog, backtesting date fidelity, and proxy support.
 - [2026-03] **TradingAgents v0.2.2** released with GPT-5.4/Gemini 3.1/Claude 4.6 model coverage, five-tier rating scale, OpenAI Responses API, Anthropic effort control, and cross-platform stability.
@@ -50,9 +51,104 @@
 
 <div align="center">
 
-🚀 [TradingAgents](#tradingagents-framework) | ⚡ [Installation & CLI](#installation-and-cli) | 🎬 [Demo](https://www.youtube.com/watch?v=90gr5lwjIho) | 📦 [Package Usage](#tradingagents-package) | 🤝 [Contributing](#contributing) | 📄 [Citation](#citation)
+🚀 [TradingAgents](#tradingagents-framework) | ⚡ [Installation & CLI](#installation-and-cli) | 🖥️ [Web UI](#web-ui-new-feature) | 🎬 [Demo](https://www.youtube.com/watch?v=90gr5lwjIho) | 📦 [Package Usage](#tradingagents-package) | 🤝 [Contributing](#contributing) | 📄 [Citation](#citation)
 
 </div>
+
+## Web UI (NEW Feature)
+
+> 🎉 **New Feature**: We've added a beautiful Streamlit web interface for easier interaction!
+
+### Key Features
+
+| Feature | Description |
+|---------|-------------|
+| 🌐 **Multi-language UI** | Full Chinese/English interface support |
+| 📌 **Popular Stocks** | 40+ preset stock tickers (NVDA, AAPL, TSLA, BABA, etc.) |
+| 🔄 **Data Source Switch** | yfinance (free) / Alpha Vantage (more stable) |
+| 🤖 **11 LLM Providers** | OpenAI, Google, Anthropic, DeepSeek, NVIDIA NIM, Coding Plan, etc. |
+| 💾 **Config Persistence** | Auto-save settings to local file |
+| ⏱️ **72h Data Cache** | Reduce API calls, increase debate rounds freely |
+| 📊 **Real-time Progress** | Live analysis progress with agent status |
+| 📋 **Organized Reports** | Tab-based report display |
+
+### Quick Start
+
+```bash
+# Install Streamlit
+pip install streamlit
+
+# Run Web UI
+streamlit run web/app.py
+```
+
+### Web UI Features
+
+**1. Easy Stock Selection**
+```
+热门股票 / Popular Stocks:
+🇺🇸 US Tech: [NVDA] [AAPL] [MSFT] [GOOGL] [TSLA]
+🇨🇳 China: [BABA] [JD] [PDD] [NIO] [BILI]
+📊 ETF: [SPY] [QQQ] [VTI] [IWM]
+```
+
+**2. Frontend API Key Configuration**
+- No need to edit `.env` file
+- Input API keys directly in web interface
+- Auto-save to `~/.tradingagents/web_config.json`
+
+**3. Smart Data Caching**
+- First analysis: ~15 Alpha Vantage API calls
+- Next 72 hours: 0 API calls (use cache)
+- Perfect for increasing debate rounds without consuming API quota
+
+**4. Multiple Data Sources**
+| Source | Pros | Cons |
+|--------|------|------|
+| yfinance | Free, no API key | Rate limits, timeouts |
+| Alpha Vantage | Stable, reliable | 25 calls/day (free) |
+
+**5. New LLM Providers**
+- NVIDIA NIM: DeepSeek V4, Llama 3.3 70B, Nemotron
+- Alibaba Coding Plan: ¥200/month, Qwen + GLM + Kimi + MiniMax
+
+### Screenshots
+
+```
+Web Interface:
+┌─────────────────────────────────────────┐
+│ TradingAgents Web                       │
+├─────────────────────────────────────────┤
+│ 📌 热门股票选择                         │
+│ 🇺🇸 [NVDA] [AAPL] [MSFT]...             │
+│ 🇨🇳 [BABA] [JD] [PDD]...                │
+│ 📊 [SPY] [QQQ]...                        │
+├─────────────────────────────────────────┤
+│ 配置区域                                 │
+│ ├─ LLM Provider: OpenAI                 │
+│ ├─ Deep Model: gpt-5.4                  │
+│ ├─ 辩论轮数: 1-5                         │
+│ └─ 数据源: alpha_vantage                 │
+├─────────────────────────────────────────┤
+│ [开始分析]                               │
+└─────────────────────────────────────────┘
+```
+
+### Workflow Strategy
+
+**Recommended Usage**:
+
+```
+Step 1: Get Data Cache (Consume API quota)
+├─ max_debate_rounds: 1  (minimum)
+├─ data_source: alpha_vantage
+└─ Analyze stock → 15 API calls
+
+Step 2: Deep Analysis (Use cache)
+├─ max_debate_rounds: 3-5  (increase!)
+├─ data_source: alpha_vantage (cached)
+└─ Analyze same stock → 0 API calls ✅
+```
 
 ## TradingAgents Framework
 
